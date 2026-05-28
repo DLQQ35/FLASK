@@ -38,7 +38,7 @@ def logout():
     name = ''
     id = ''
     msg = 'You have been logged out!'
-    return render_template('login.html', msg=msg, name='name', id='id')
+    return render_template('login.html', msg=msg,)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -67,7 +67,7 @@ def register():
         elif not username or not password or not email:
             msg = 'Please fill out the form!'
         else:
-            mycursor.execute('INSERT INTO LoginDetails VALUES (%s, %s, %s)', (username, password, email))
+            mycursor.execute('INSERT INTO LoginDetails(username, password, email) VALUES (%s, %s, %s)',(username, password, email))
             mydb.commit()
             msg = 'You have successfully registered!'
             name = username
@@ -80,4 +80,4 @@ def register():
 def index():
     return render_template('login.html')
 
-app.run(host='0.0.0.0', port=8080)
+app.run(host='0.0.0.0', port=8080, debug=True)
